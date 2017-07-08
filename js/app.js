@@ -1,14 +1,14 @@
 /*jshint esversion:6*/
-let oReq = new XMLHttpRequest();
-oReq.addEventListener('load', reqListener);
-oReq.open('GET', 'http://swapi.co/api/people/4/');
-oReq.send();
-
 const name4 = document.getElementById('person4Name');
 const homeWorld4 = document.getElementById('person4HomeWorld');
 const person14 = document.getElementById('person14Name');
 const species14 = document.getElementById('person14Species');
 const filmList = document.getElementById('filmList');
+
+let oReq = new XMLHttpRequest();
+oReq.addEventListener('load', reqListener);
+oReq.open('GET', 'http://swapi.co/api/people/4/');
+oReq.send();
 
 function reqListener() {
   nameObj = JSON.parse(this.responseText);
@@ -55,10 +55,33 @@ function reqListener5() {
   for(let i = 0; i < filmObj.results.length; i++) {
     let newLi = document.createElement('li');
     newLi.className = 'film';
+
     let filmTitleH2 = document.createElement('h2');
     filmTitleH2.className = 'filmTitle';
     filmTitleH2.innerHTML = filmObj.results[i].title;
+
+    let planetsH3 = document.createElement('h3');
+    planetsH3.innerHTML = 'Planets';
+
+    let filmPlanetsUl = document.createElement('ul');
+    filmPlanetsUl.className = 'filmPlanets';
+    for(let j = 0; j < filmObj.results[i].planets.length; j++) {
+    let oReq6 = new XMLHttpRequest();
+    oReq6.addEventListener('load', function() {
+      planetObj = JSON.parse(this.responseText);
+    let planetNameH4 = document.createElement('h4');
+      planetNameH4.className = 'planetName';
+      planetNameH4.innerHTML = planetObj.name;
+
+      newLi.appendChild(planetNameH4);
+    });
+    oReq6.open('GET', filmObj.results[i].planets[j]);
+    oReq6.send();
+    }
+
     newLi.appendChild(filmTitleH2);
+    newLi.appendChild(planetsH3);
+    newLi.appendChild(filmPlanetsUl);
     filmList.appendChild(newLi);
   }
 }
