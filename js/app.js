@@ -7,6 +7,7 @@ oReq.send();
 const name4 = document.getElementById('person4Name');
 const homeWorld4 = document.getElementById('person4HomeWorld');
 const person14 = document.getElementById('person14Name');
+const species14 = document.getElementById('person14Species');
 
 function reqListener() {
   nameObj = JSON.parse(this.responseText);
@@ -31,4 +32,14 @@ oReq3.send();
 function reqListener3() {
   name14Obj = JSON.parse(this.responseText);
   person14.innerHTML = name14Obj.name;
+
+  let oReq4 = new XMLHttpRequest();
+  oReq4.addEventListener('load', reqListener4);
+  oReq4.open('GET', name14Obj.species);
+  oReq4.send();
+}
+
+function reqListener4() {
+  speciesObj = JSON.parse(this.responseText);
+  species14.innerHTML = speciesObj.name;
 }
