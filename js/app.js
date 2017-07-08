@@ -8,6 +8,7 @@ const name4 = document.getElementById('person4Name');
 const homeWorld4 = document.getElementById('person4HomeWorld');
 const person14 = document.getElementById('person14Name');
 const species14 = document.getElementById('person14Species');
+const filmList = document.getElementById('filmList');
 
 function reqListener() {
   nameObj = JSON.parse(this.responseText);
@@ -42,4 +43,22 @@ function reqListener3() {
 function reqListener4() {
   speciesObj = JSON.parse(this.responseText);
   species14.innerHTML = speciesObj.name;
+}
+
+let oReq5 = new XMLHttpRequest();
+oReq5.addEventListener('load', reqListener5);
+oReq5.open('GET', 'http://swapi.co/api/films/');
+oReq5.send();
+
+function reqListener5() {
+  filmObj = JSON.parse(this.responseText);
+  for(let i = 0; i < filmObj.results.length; i++) {
+    let newLi = document.createElement('li');
+    newLi.className = 'film';
+    let filmTitleH2 = document.createElement('h2');
+    filmTitleH2.className = 'filmTitle';
+    filmTitleH2.innerHTML = filmObj.results[i].title;
+    newLi.appendChild(filmTitleH2);
+    filmList.appendChild(newLi);
+  }
 }
