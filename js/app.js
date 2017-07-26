@@ -6,15 +6,15 @@ const species14 = document.getElementById('person14Species');
 const filmList = document.getElementById('filmList');
 
 
-fetch ('http://swapi.co/api/people/4/')
-.then ((res) => {
+fetch('http://swapi.co/api/people/4/')
+.then((res) => {
   return res.json();
 })
-.then ((data) => {
+.then((data) => {
   name4.innerHTML = data.name;
   return data;
 })
-.then ((data) => {
+.then((data) => {
   return fetch(data.homeworld);
 })
 .then((data) => {
@@ -24,26 +24,23 @@ fetch ('http://swapi.co/api/people/4/')
   homeWorld4.innerHTML = data.name;
 });
 
-
-// let oReq3 = new XMLHttpRequest();
-// oReq3.addEventListener('load', reqListener3);
-// oReq3.open('GET', 'http://swapi.co/api/people/14/');
-// oReq3.send();
-
-// function reqListener3() {
-//   name14Obj = JSON.parse(this.responseText);
-//   person14.innerHTML = name14Obj.name;
-
-//   let oReq4 = new XMLHttpRequest();
-//   oReq4.addEventListener('load', reqListener4);
-//   oReq4.open('GET', name14Obj.species);
-//   oReq4.send();
-// }
-
-// function reqListener4() {
-//   speciesObj = JSON.parse(this.responseText);
-//   species14.innerHTML = speciesObj.name;
-// }
+fetch('http://swapi.co/api/people/14/')
+.then((res) => {
+  return res.json();
+})
+.then((data) => {
+  person14.innerHTML = data.name;
+  return data;
+})
+.then((data) => {
+  return fetch(data.species);
+})
+.then((data) => {
+  return data.json();
+})
+.then((data) => {
+  species14.innerHTML = data.name;
+});
 
 // let oReq5 = new XMLHttpRequest();
 // oReq5.addEventListener('load', reqListener5);
