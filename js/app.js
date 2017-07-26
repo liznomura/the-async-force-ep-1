@@ -42,6 +42,52 @@ fetch('http://swapi.co/api/people/14/')
   species14.innerHTML = data.name;
 });
 
+fetch('http://swapi.co/api/films/')
+.then((res) => {
+  return res.json();
+})
+.then((data) => {
+  return data.results;
+})
+.then((data) => {
+  data.forEach( c => {
+    let newLi = document.createElement('li');
+    newLi.className = 'film';
+
+    let filmTitleH2 = document.createElement('h2');
+    filmTitleH2.className = 'filmTitle';
+    filmTitleH2.innerHTML = c.title;
+
+    let planetsH3 = document.createElement('h3');
+    planetsH3.innerHTML = 'Planets';
+
+    let filmPlanetsUl = document.createElement('ul');
+    filmPlanetsUl.className = 'filmPlanets';
+
+    c.planets.forEach( c => {
+      let planetLi = document.createElement('li');
+      planetLi.className = 'planet';
+      let planetNameH4 = document.createElement('h4');
+      planetNameH4.className = 'planetName';
+
+
+      fetch(c)
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        planetNameH4.innerHTML = data.name;
+        planetLi.appendChild(planetNameH4);
+        newLi.appendChild(planetLi);
+      });
+    });
+    newLi.appendChild(filmTitleH2);
+    newLi.appendChild(planetsH3);
+    newLi.appendChild(filmPlanetsUl);
+    filmList.appendChild(newLi);
+  });
+});
+
 // let oReq5 = new XMLHttpRequest();
 // oReq5.addEventListener('load', reqListener5);
 // oReq5.open('GET', 'http://swapi.co/api/films/');
